@@ -7,10 +7,19 @@ const createGenreDB = async () => {
 
     await axios.get(`${URL_GENRES}?key=${API_KEY}`).then(async(response)=>{
         const genresAPI = response.data.results; // Guardo los generos de la API
-        const newGenres = genresAPI.map((genre) => genre.name);//creo arreglo de nombres de generos
+        const newGenres = genresAPI.map((genre) => ({ name: genre.name }));//creo arreglo de nombres de generos
 
-        await Genre.bulkCreate(newGenres);//Guardo en la DB el arreglo de nombres
-        console.log("Guarde los generos en la DB", newGenres)
+        for (const genreData of newGenres) {
+            const [genre, created] = await Genre.findOrCreate({ // si encuentra el nombre en la tabla lo almacena y setea el created false 
+              where: { name: genreData.name }, // entonces si created es false es porque ya estaba en la tabla y no l otengo que volver a almacenar
+            });
+      
+            if (created) {
+              console.log("Género creado:", genre.name);
+            } else {
+              console.log("Género ya existente:", genre.name);
+            }
+        }
     })
 
 }

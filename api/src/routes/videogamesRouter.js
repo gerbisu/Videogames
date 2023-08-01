@@ -1,21 +1,13 @@
 const { Router } = require('express');
 const videogamesRouter = Router()
+const { videogamesHandler, videogameByIdHandler, postVideogameHandler } = require ('../handlers/videogamesHandler')
 
+videogamesRouter.get("/", videogamesHandler)
 
-videogamesRouter.get("/", (req, res) => {
-    try{
-        res.status(200).send("Se ejecuto todo correctamente y aca estan los videojuegos []")
-    } catch(error){
-        res.status(400)
-    }
-})
+videogamesRouter.get("/:id", videogameByIdHandler)
 
-videogamesRouter.get("/:idVideogame", (req, res) => {
-    try{
-        res.status(200).send("Se ejecuto todo correctamente y aca esta el videojuego por ID []")
-    } catch(error){
-        res.status(400)
-    }
-})
+videogamesRouter.post("/", postVideogameHandler)
+
 //
+
 module.exports = videogamesRouter
