@@ -5,9 +5,11 @@ const {API_KEY,URL_GENRES} = process.env;
 
 const createGenreDB = async () => {
 
-    await axios.get(`${URL_GENRES}?key=${API_KEY}`).then(async(response)=>{
-        const genresAPI = response.data.results; // Guardo los generos de la API
-        const newGenres = genresAPI.map((genre) => ({ name: genre.name }));//creo arreglo de nombres de generos
+    const response = await axios.get(`${URL_GENRES}?key=${API_KEY}`)
+    const genresAPI = response.data.results; // Guardo los generos de la API
+    const newGenres = genresAPI.map((genre) => ({ name: genre.name }));//creo arreglo de nombres de generos
+
+    const createdGenres = [];
 
         for (const genreData of newGenres) {
             const [genre, created] = await Genre.findOrCreate({ // si encuentra el nombre en la tabla lo almacena y setea el created false 
@@ -19,11 +21,10 @@ const createGenreDB = async () => {
             } else {
               console.log("Género ya existente:", genre.name);
             }
+            createdGenres.push(genre.name);
         }
-    })
-
+        return createdGenres;
 }
-
 module.exports = {
     createGenreDB
 }

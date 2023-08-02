@@ -1,7 +1,7 @@
 const {createVideogameDB, VideogameById, VideogameByName, AllGames} = require ('../controllers/videogamesControllers.js')
 
 const videogamesHandler =  async (req,res)=>{
-    const name = req.query;
+    const {name} = req.query;
     try{
         if(name){ // si me pasan name por query
             const videogame = await VideogameByName(name)
