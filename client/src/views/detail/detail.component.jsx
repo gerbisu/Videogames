@@ -13,21 +13,22 @@ function Detail() {
         dispatch(getById(id));
       }, [dispatch, id]);
 
-      console.log(gameDetails);
+      
       if (!gameDetails) {
         return <div>Loading...</div>; // Muestra algo mientras se cargan los detalles del juego.
       }
       const { name, genresName, background_image, description, released, rating, platformsName } = gameDetails;
+      
 
     return (
     <div className="container">
       <h1>Nombre: {name}</h1>
       <p>ID: {id}</p>
-      <p>Plataformas: {platformsName.join(", ")}</p>
+      <p>Plataformas: {platformsName}</p>
       <p>Descripción: {description}</p>
       <p>Fecha de lanzamiento: {released}</p>
       <p>Rating: {rating}</p>
-      <p>Géneros: {genresName.join(", ")}</p>
+      <p>Géneros: {genresName}</p>
       <img src={background_image} alt={name}/>
 
     </div>

@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     released:{
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING,
       allowNull: false
     },
     rating:{
@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     genre:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull:false
     }
   },

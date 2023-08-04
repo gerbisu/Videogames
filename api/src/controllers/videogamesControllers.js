@@ -29,7 +29,7 @@ const filtro = (videogames) => { //Filtro los videogames y elimino la informacio
         //Le paso el name el index y el array en si para poder eliminar los duplicados
 
 
-        const genres = elem.genres.map(g => g.id);//extraigo el id del genero
+        const genres = elem.genres.map(g => g.name);//extraigo el id del genero
 
         
         return { // retorno objeto donde todos los elementos estan igual pero plataform y genre les modifique la informacion
@@ -40,7 +40,7 @@ const filtro = (videogames) => { //Filtro los videogames y elimino la informacio
             image: elem.background_image,
             released: elem.released,
             rating: elem.rating,
-            genre: genres,
+            genre: genres.join(", "),
         };
     });
 };
@@ -68,7 +68,7 @@ const VideogameById = async (id, dataLocation) => {
         const response = await axios.get(`${URL_GAMES}/${id}?key=${API_KEY}`);//Hago peticion a la API
         const { id: apiId, name, description, released, platforms, background_image, rating, genres } = response.data;//me quedo con los datos que me interesan
         const platformsName = platforms.map(data => data.platform.name);//Me quedo solo con el nombre
-        const genresName = genres.map(data => data.name); //Me quedo solo con el nombre
+        const genresName = genres.map(data => data.name).join(", "); //Me quedo solo con el nombre
         videogameById = { id, name, description, released, platformsName, background_image, rating, genresName };//Guardo la info
     } else {
         videogameById = await Videogame.findByPk(id);
