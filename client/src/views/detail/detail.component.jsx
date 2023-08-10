@@ -7,7 +7,7 @@ import { getById } from "../../redux/actions/index"
 function Detail() {
     const {id} = useParams();
     const dispatch = useDispatch();
-    const gameDetails = useSelector((state) => state.allGamescopy);
+    const gameDetails = useSelector((state) => state.Game);
 
     useEffect(() => {
         dispatch(getById(id));
