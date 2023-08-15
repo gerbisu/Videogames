@@ -1,0 +1,80 @@
+.create{
+    margin: 0;
+    padding: 0;
+    background-image: url(https://www.xtrafondos.com/wallpapers/red-dead-redemption-2-the-bounty-hunter-8416.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+.create-inicio{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar elementos horizontalmente */
+    justify-content: center; /* Centrar elementos verticalmente */
+}
+.create-title-text{
+    text-align: center;
+    font-weight: bold; 
+    font-size: 50px;
+    color: #c3195d;
+}
+
+.create-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-lable{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold; 
+    font-size: 25px;
+    color: #c3195d;
+}
+
+.create-error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-check{
+    font-size: 15px;
+    color: #c3195d;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.create-input {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #c3195d; 
+    background: #ffffff; 
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 2px solid #c3195d; 
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 #c3195d;
+}
+
+.create-input:hover {
+    color: #ffffff; 
+    box-shadow: inset 0 -100px 0 0 #c3195d; 
+}

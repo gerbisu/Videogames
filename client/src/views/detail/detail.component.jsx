@@ -17,30 +17,42 @@ function Detail() {
   if (!gameDetails) {
     return <div>Loading...</div>; // Muestra algo mientras se cargan los detalles del juego.
   }
-  const {
-    name,
-    genresName,
-    background_image,
-    description,
-    released,
-    rating,
-    platformsName,
-  } = gameDetails;
+
+  const isFromDatabase = gameDetails.genre !== undefined;
+  const genresName = isFromDatabase
+    ? gameDetails.genre
+    : gameDetails.genresName;
+  const platformsName = isFromDatabase
+    ? gameDetails.platforms
+    : gameDetails.platformsName;
+  const background_image = isFromDatabase
+    ? gameDetails.image
+    : gameDetails.background_image;
+  const { name, description, released, rating } = gameDetails;
+
+  const backgroundStyle = {
+    backgroundImage: `url(${background_image})`,
+  };
 
   return (
-    <div className="container">
-      <Link to={`/home`}>
-        <button>Inicio</button>
-      </Link>
-      <h2>DETALLE</h2>
-      <h2>Nombre: {name}</h2>
-      <p>ID: {id}</p>
-      <p>Plataformas: {platformsName}</p>
-      <p>Descripción: {description}</p>
-      <p>Fecha de lanzamiento: {released}</p>
-      <p>Rating: {rating}</p>
-      <p>Géneros: {genresName}</p>
-      <img src={background_image} alt={name} />
+    <div className="detail" style={backgroundStyle}>
+      <div className="detail-inicio">
+        <h2 className="detail-title-text">D E T A L L E</h2>
+        <Link to={`/home`}>
+          <button className="detail-button">Inicio</button>
+        </Link>
+      </div>
+      <div className="detail-info">
+        <h2 className="detail-subtitle-text-name">{name}</h2>
+        <p className="detail-subtitle-text-name">ID: {id}</p>
+        <p className="detail-subtitle-text">Plataformas:</p>
+        <p className="detail-text">{platformsName}</p>
+        <p className="detail-subtitle-text">Descripción: </p>
+        <p className="detail-text">{description}</p>
+        <p className="detail-subtitle-text">Fecha de lanzamiento: {released}</p>
+        <p className="detail-subtitle-text">Rating: {rating}</p>
+        <p className="detail-subtitle-text">Géneros: {genresName}</p>
+      </div>
     </div>
   );
 }

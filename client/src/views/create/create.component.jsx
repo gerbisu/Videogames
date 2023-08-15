@@ -88,50 +88,72 @@ function Create() {
   };
 
   return (
-    <div>
-      <Link to={`/home`}>
-        <button>Inicio</button>
-      </Link>
-      <form onSubmit={handlerSubmit}>
+    <div className="create">
+      <div className="create-inicio">
+        <h2 className="create-title-text">C R E A C I O N</h2>
+        <Link to={`/home`}>
+          <button>Inicio</button>
+        </Link>
+      </div>
+      <form onSubmit={handlerSubmit} className="create-form">
         <div>
-          <label>Nombre</label>
-          <input name="name" value={input.name} onChange={handleChange} />
-          {errors.name && <span>{errors.name}</span>}
-        </div>
-        <div>
-          <label>Imagen</label>
-          <input name="image" value={input.image} onChange={handleChange} />
-          {errors.image && <span>{errors.image}</span>}
-        </div>
-        <div>
-          <label>Descripción</label>
+          <label className="create-lable">Nombre</label>
           <input
+            name="name"
+            value={input.name}
+            onChange={handleChange}
+            className="create-input"
+          />
+          {errors.name && <span className="create-error">{errors.name}</span>}
+        </div>
+        <div>
+          <label className="create-lable">Imagen</label>
+          <input
+            name="image"
+            value={input.image}
+            onChange={handleChange}
+            className="create-input"
+          />
+          {errors.image && <span className="create-error">{errors.image}</span>}
+        </div>
+        <div>
+          <label className="create-lable">Descripción</label>
+          <input
+            className="create-input"
             name="description"
             value={input.description}
             onChange={handleChange}
           />
-          {errors.description && <span>{errors.description}</span>}
+          {errors.description && (
+            <span className="create-error">{errors.description}</span>
+          )}
         </div>
         <div>
-          <label>Plataformas</label>
+          <label className="create-lable">Plataformas</label>
           <input
+            className="create-input"
             name="platforms"
             value={input.platforms}
             onChange={handleChange}
           />
-          {errors.platforms && <span>{errors.platforms}</span>}
+          {errors.platforms && (
+            <span className="create-error">{errors.platforms}</span>
+          )}
         </div>
         <div>
-          <label>Fecha de lanzamiento</label>
+          <label className="create-lable">Fecha de lanzamiento</label>
           <input
+            className="create-input"
             name="released"
             value={input.released}
             onChange={handleChange}
           />
-          {errors.released && <span>{errors.released}</span>}
+          {errors.released && (
+            <span className="create-error">{errors.released}</span>
+          )}
         </div>
         <div>
-          <label>Rating</label>
+          <label className="create-lable">Rating</label>
           <select name="rating" value={input.rating} onChange={handleChange}>
             <option value="">Seleccionar Rating</option>
             <option value="1">1</option>
@@ -140,14 +162,16 @@ function Create() {
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-          {errors.rating && <span>{errors.rating}</span>}
+          {errors.rating && (
+            <span className="create-error">{errors.rating}</span>
+          )}
         </div>
         {allGenres && allGenres.newGenre && allGenres.newGenre.length > 0 && (
           <div>
-            <label>Géneros</label>
+            <label className="create-lable">Géneros</label>
             <div>
               {allGenres.newGenre.map((genre) => (
-                <label key={genre}>
+                <label key={genre} className="create-check">
                   <input
                     type="checkbox"
                     name="genre"
@@ -159,7 +183,9 @@ function Create() {
                 </label>
               ))}
             </div>
-            {errors.genre && <span>{errors.genre}</span>}
+            {errors.genre && (
+              <span className="create-error">{errors.genre}</span>
+            )}
           </div>
         )}
 

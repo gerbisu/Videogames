@@ -1,11 +1,9 @@
-.Landing{
+.landing{
     margin: 0;
     padding: 0;
     background-image: url(https://www.xtrafondos.com/wallpapers/stray-videojuego-11037.jpg);
     background-size: cover;
     background-position: center;
-    width: 100%;
-    height: 100vh;
 }
 .landing-button-Link {
     position: absolute;
@@ -19,6 +17,7 @@
     font-size: 30px;
     letter-spacing: 1px;
     font-weight: bold;
+    background: rgba(0, 0, 0, 0.7);
 }
 .landing-text {
     padding-top: 100px;

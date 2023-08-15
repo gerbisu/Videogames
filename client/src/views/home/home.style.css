@@ -1,0 +1,15 @@
+.home{
+    margin: 0;
+    padding: 0;
+    background-image: url(https://www.xtrafondos.com/wallpapers/rainbow-six-extraction-8584.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vw;
+}
+.home-title-text{
+    text-align: center;
+    font-weight: bold; 
+    font-size: 50px;
+    color: #c3195d;
+}

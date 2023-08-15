@@ -80,21 +80,11 @@ function Home() {
   }
 
   return (
-    <div className="Home">
-      <h2 className={styles.HomeTitle}>Este es el HOME</h2>
+    <div className="home">
+      <h2 className="home-title-text">I N I C I O</h2>
       <Link to={`/create`}>
         <button>Crear</button>
       </Link>
-
-      <button onClick={handleReset}>Reset</button>
-
-      <button onClick={handleRatingAscending}>Raiting Acendente</button>
-
-      <button onClick={handleRatingDescending}>Raiting Decendente</button>
-
-      <button onClick={handleSortA_Z}>A - Z</button>
-
-      <button onClick={handleSortZ_A}>Z - A</button>
 
       <select id="opciones" onChange={handleGenre}>
         <option value="Todos">Todos</option>
@@ -112,7 +102,15 @@ function Home() {
         <option value="Database">Creados</option>
       </select>
 
-      <Navbar handleChange={handleChange} handleSubmit={handleSubmit} />
+      <Navbar
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleSortA_Z={handleSortA_Z}
+        handleSortZ_A={handleSortZ_A}
+        handleReset={handleReset}
+        handleRatingAscending={handleRatingAscending}
+        handleRatingDescending={handleRatingDescending}
+      />
 
       {/* Mostrar el mensaje de error si existe */}
       {error && error.message && (
