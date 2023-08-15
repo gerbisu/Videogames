@@ -7,6 +7,7 @@ import {
   GET_GENRES,
   GENRES,
   RESET,
+  ORIGIN,
 } from "../actions/index";
 
 let initialState = {
@@ -46,6 +47,7 @@ function rootReducer(state = initialState, action) {
     case SORTED:
     case GENRES:
     case RESET:
+    case ORIGIN:
       return {
         ...state,
         allGamescopy: action.payload,

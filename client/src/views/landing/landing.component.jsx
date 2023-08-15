@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 function Landing() {
   return (
-    <div>
-      <p>API VIDEOGAMES</p>
+    <div className="Landing">
+      <p className="landing-text">API VIDEOGAMES</p>
 
-      <Link to={`/home`}>
+      <Link className="landing-button-Link" to={`/home`}>
         <button className="landing-button">Ingresar</button>
       </Link>
     </div>

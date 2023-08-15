@@ -8,6 +8,7 @@ export const RAITING = "RAITING";
 export const GET_GENRES = "GET_GENRES";
 export const GENRES = "GENRES";
 export const RESET = "RESET";
+export const ORIGIN = "ORIGIN";
 
 export function getAllGames() {
   return async function (dispatch) {
@@ -109,6 +110,25 @@ export const genresVideogames = (genre) => {
     dispatch({
       type: GENRES,
       payload: sortedByGenre,
+    });
+  };
+};
+
+export const getGamesOrigin = (origin) => {
+  return async function (dispatch, getState) {
+    const allGames = getState().allGames;
+    let sortedByOrigin;
+
+    if (origin === "API") {
+      sortedByOrigin = allGames.filter((game) => !game.origin);
+    } else if (origin === "Database") {
+      sortedByOrigin = allGames.filter((game) => game.origin);
+    } else {
+      sortedByOrigin = allGames;
+    }
+    dispatch({
+      type: ORIGIN,
+      payload: sortedByOrigin,
     });
   };
 };

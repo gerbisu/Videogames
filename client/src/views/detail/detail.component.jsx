@@ -1,38 +1,48 @@
 import "./detail.style.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux"
-import { getById } from "../../redux/actions/index"
+import { useDispatch, useSelector } from "react-redux";
+import { getById } from "../../redux/actions/index";
+import { Link } from "react-router-dom";
 
 function Detail() {
-    const {id} = useParams();
-    const dispatch = useDispatch();
-    const gameDetails = useSelector((state) => state.Game);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const gameDetails = useSelector((state) => state.Game);
 
-    useEffect(() => {
-        dispatch(getById(id));
-      }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(getById(id));
+  }, [dispatch, id]);
 
-      
-      if (!gameDetails) {
-        return <div>Loading...</div>; // Muestra algo mientras se cargan los detalles del juego.
-      }
-      const { name, genresName, background_image, description, released, rating, platformsName } = gameDetails;
-      
+  if (!gameDetails) {
+    return <div>Loading...</div>; // Muestra algo mientras se cargan los detalles del juego.
+  }
+  const {
+    name,
+    genresName,
+    background_image,
+    description,
+    released,
+    rating,
+    platformsName,
+  } = gameDetails;
 
-    return (
+  return (
     <div className="container">
-      <h1>Nombre: {name}</h1>
+      <Link to={`/home`}>
+        <button>Inicio</button>
+      </Link>
+      <h2>DETALLE</h2>
+      <h2>Nombre: {name}</h2>
       <p>ID: {id}</p>
       <p>Plataformas: {platformsName}</p>
       <p>Descripción: {description}</p>
       <p>Fecha de lanzamiento: {released}</p>
       <p>Rating: {rating}</p>
       <p>Géneros: {genresName}</p>
-      <img src={background_image} alt={name}/>
-
+      <img src={background_image} alt={name} />
     </div>
-    )
+  );
 }
 
 export default Detail;

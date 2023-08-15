@@ -16,7 +16,7 @@ function Paginacion({ pagina, setPagina, maximo }) {
       <button className="paginacion-button" onClick={previousPage}>
         ◀
       </button>
-      <p></p>
+      <p className="text">{pagina}</p>
       <button className="paginacion-button" onClick={nextPagina}>
         ▶
       </button>

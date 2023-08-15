@@ -1,5 +1,7 @@
+import styles from "./home.style.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getAllGames,
   getByName,
@@ -8,11 +10,11 @@ import {
   genresVideogames,
   getAllGenres,
   reset,
+  getGamesOrigin,
 } from "../../redux/actions/index";
 import Navbar from "../../components/navbar/navbar.component";
 import Cards from "../../components/cards/cards.component";
 import Paginacion from "../../components/paginacion/paginacion.component";
-import styles from "./home.style.css";
 
 function Home() {
   const dispatch = useDispatch();
@@ -67,6 +69,11 @@ function Home() {
       dispatch(genresVideogames(selectedGenre));
     }
   }
+  //-------Filtro por Origen---
+  function handleOrigin(event) {
+    const Origin = event.target.value;
+    dispatch(getGamesOrigin(Origin));
+  }
   //-------Reseteo----------
   function handleReset(event) {
     dispatch(reset());
@@ -75,6 +82,9 @@ function Home() {
   return (
     <div className="Home">
       <h2 className={styles.HomeTitle}>Este es el HOME</h2>
+      <Link to={`/create`}>
+        <button>Crear</button>
+      </Link>
 
       <button onClick={handleReset}>Reset</button>
 
@@ -94,6 +104,12 @@ function Home() {
               {genre}
             </option>
           ))}
+      </select>
+
+      <select id="opciones" onChange={handleOrigin}>
+        <option value="Todos">Todos</option>
+        <option value="API">Existentes</option>
+        <option value="Database">Creados</option>
       </select>
 
       <Navbar handleChange={handleChange} handleSubmit={handleSubmit} />

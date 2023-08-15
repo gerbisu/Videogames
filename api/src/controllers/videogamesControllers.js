@@ -1,6 +1,6 @@
 //El controller es el que hace la interacion con fuentes externas de informacion (Conexion con base de datos)
 const axios = require("axios");
-const { Videogame } = require("../db");
+const { Videogame, Genre } = require("../db");
 const { API_KEY, URL_GAMES } = process.env;
 const { Op } = require("sequelize");
 
@@ -34,7 +34,7 @@ const createVideogameDB = async (
   rating,
   genre
 ) => {
-  return await Videogame.create({
+  const newVideogame = await Videogame.create({
     name,
     description,
     platforms,
@@ -42,7 +42,9 @@ const createVideogameDB = async (
     released,
     rating,
     genre,
+    origin: "Data Base",
   });
+  return newVideogame;
 };
 
 const AllGames = async () => {

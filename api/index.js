@@ -17,12 +17,12 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
-    console.log(' listening at 3001'); // eslint-disable-line no-console
+    console.log(" listening at 3001"); // eslint-disable-line no-console
   });
-});// exporto el server y la base de datos y ejecuto para que se levanten ambas 
+}); // exporto el server y la base de datos y ejecuto para que se levanten ambas
