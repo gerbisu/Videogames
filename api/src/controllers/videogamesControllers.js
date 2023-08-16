@@ -66,7 +66,7 @@ const VideogameById = async (id, dataLocation) => {
 
   if (dataLocation === "api") {
     //Reviso donde buscar el videogame
-    const response = await axios.get(`${URL_GAMES}/${id}?key=${API_KEY}`); //Hago peticion a la API
+    const response = await axios.get(`${URL_GAMES}/${id}?key=${API_KEY}`);
     const {
       id: apiId,
       name,
@@ -76,9 +76,9 @@ const VideogameById = async (id, dataLocation) => {
       background_image,
       rating,
       genres,
-    } = response.data; //me quedo con los datos que me interesan
-    const platformsName = platforms.map((data) => data.platform.name); //Me quedo solo con el nombre
-    const genresName = genres.map((data) => data.name).join(", "); //Me quedo solo con el nombre
+    } = response.data;
+    const platformsName = platforms.map((data) => data.platform.name);
+    const genresName = genres.map((data) => data.name).join(", ");
     videogameById = {
       id,
       name,
@@ -88,7 +88,7 @@ const VideogameById = async (id, dataLocation) => {
       background_image,
       rating,
       genresName,
-    }; //Guardo la info
+    };
   } else {
     videogameById = await Videogame.findByPk(id);
   }

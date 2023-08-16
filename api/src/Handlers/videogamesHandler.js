@@ -9,12 +9,11 @@ const videogamesHandler = async (req, res) => {
   const { name } = req.query;
   try {
     if (name) {
-      // si me pasan name por query
       const videogame = await VideogameByName(name);
-      res.status(200).send(videogame); // devuelvo ese juego
+      res.status(200).send(videogame);
     } else {
-      const videogames = await AllGames(); // si no me pasan nada y es solo un get a /videgames
-      res.status(200).send(videogames); // devuelvo todos los videogames
+      const videogames = await AllGames();
+      res.status(200).send(videogames);
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -40,7 +39,7 @@ const videogameByIdHandler = async (req, res) => {
 
 const postVideogameHandler = async (req, res) => {
   const { name, description, platforms, image, released, rating, genre } =
-    req.body; // todos los datos del MODEL de videgoames para guardarlo en la DB
+    req.body;
   try {
     if (
       !name ||
@@ -68,7 +67,7 @@ const postVideogameHandler = async (req, res) => {
 };
 
 module.exports = {
-  videogamesHandler, // Get /videogames - /videogames/name?="..."
-  videogameByIdHandler, // Get | /videogames/:idVideogame
-  postVideogameHandler, // Post /videogames
+  videogamesHandler,
+  videogameByIdHandler,
+  postVideogameHandler,
 };

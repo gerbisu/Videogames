@@ -3,11 +3,12 @@ import {
   GET_BY_NAME,
   GET_BY_ID,
   SORTED,
-  RAITING,
+  RATING,
   GET_GENRES,
   GENRES,
-  RESET,
+  RESETED,
   ORIGIN,
+  CLEAR_GAME_DETAILS,
 } from "../actions/index";
 
 let initialState = {
@@ -25,6 +26,8 @@ function rootReducer(state = initialState, action) {
         ...state,
         allGames: action.payload,
         allGamescopy: action.payload,
+        filtered: action.payload,
+        sorted: action.payload,
         error: null,
       };
     case GET_GENRES:
@@ -43,10 +46,15 @@ function rootReducer(state = initialState, action) {
         ...state,
         Game: action.payload,
       };
-    case RAITING:
+    case CLEAR_GAME_DETAILS:
+      return {
+        ...state,
+        Game: action.payload,
+      };
+    case RATING:
     case SORTED:
     case GENRES:
-    case RESET:
+    case RESETED:
     case ORIGIN:
       return {
         ...state,

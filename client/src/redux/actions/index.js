@@ -4,11 +4,12 @@ export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_BY_ID = "GET_BY_ID";
 export const FILTER_GAMES = "FILTER_GAMES";
 export const SORTED = "SORTED";
-export const RAITING = "RAITING";
+export const RATING = "RATING";
 export const GET_GENRES = "GET_GENRES";
 export const GENRES = "GENRES";
-export const RESET = "RESET";
+export const RESETED = "RESETED";
 export const ORIGIN = "ORIGIN";
+export const CLEAR_GAME_DETAILS = "CLEAR_GAME_DETAILS";
 
 export function getAllGames() {
   return async function (dispatch) {
@@ -82,7 +83,7 @@ export const raitingVideogames = (ascending) => {
       return ascending ? ratingA - ratingB : ratingB - ratingA;
     });
     dispatch({
-      type: RAITING,
+      type: RATING,
       payload: sortedByRating,
     });
   };
@@ -133,12 +134,18 @@ export const getGamesOrigin = (origin) => {
   };
 };
 
-export const reset = () => {
+export const reseted = () => {
   return async function (dispatch, getState) {
     const allGames = getState().allGames;
     dispatch({
-      type: RESET,
+      type: RESETED,
       payload: allGames,
     });
+  };
+};
+
+export const clearGameDetails = () => {
+  return {
+    type: "CLEAR_GAME_DETAILS",
   };
 };

@@ -2,7 +2,7 @@ import "./detail.style.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getById } from "../../redux/actions/index";
+import { getById, clearGameDetails } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 
 function Detail() {
@@ -38,7 +38,7 @@ function Detail() {
     <div className="detail" style={backgroundStyle}>
       <div className="detail-inicio">
         <h2 className="detail-title-text">D E T A L L E</h2>
-        <Link to={`/home`}>
+        <Link to={`/home`} onClick={() => dispatch(clearGameDetails())}>
           <button className="detail-button">Inicio</button>
         </Link>
       </div>

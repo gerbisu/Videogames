@@ -1,16 +1,16 @@
-import styles from "./home.style.css";
+import "./home.style.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   getAllGames,
   getByName,
-  sortedVideogames,
-  raitingVideogames,
-  genresVideogames,
+  sortedVideogames, //!Ordena por nombre
+  raitingVideogames, //!Ordena pro raiting
+  genresVideogames, //!Filtra por genero
+  getGamesOrigin, //!Filtra por origen
   getAllGenres,
-  reset,
-  getGamesOrigin,
+  reseted,
 } from "../../redux/actions/index";
 import Navbar from "../../components/navbar/navbar.component";
 import Cards from "../../components/cards/cards.component";
@@ -24,11 +24,14 @@ function Home() {
     dispatch(getAllGenres());
   }, [dispatch]);
 
-  const allGamescopy = useSelector((state) => state.allGamescopy); // Todos los juegos
-  const allGenres = useSelector((state) => state.allGenres); // Todos los genres
+  const allGamescopy = useSelector((state) => state.allGamescopy);
+  const allGenres = useSelector((state) => state.allGenres);
   const error = useSelector((state) => state.error);
 
   //----Estados Locales-----
+  const [selectedGenre, setSelectedGenre] = useState("Todos"); // Genero selected
+  const [selectedOrigin, setSelectedOrigin] = useState("Todos"); // Origin selected
+  const [selectedSorting, setSelectedSorting] = useState(""); // Ordenamiento selected
   const [pagina, setPagina] = useState(1); //N° pagina
   const [porPagina, setPorPagina] = useState(15); //N°cards por pag
   const [searchString, setSearchString] = useState(""); //String del nombre del game buscado
@@ -44,39 +47,47 @@ function Home() {
     event.preventDefault();
     dispatch(getByName(searchString));
   }
-  //------Filtro por Raiting----
-  function handleRatingDescending() {
-    dispatch(raitingVideogames(true));
-  }
-
-  function handleRatingAscending() {
-    dispatch(raitingVideogames(false));
-  }
-  //-------Filtro por Nombre-----
-  function handleSortA_Z() {
-    dispatch(sortedVideogames(true));
-  }
-
-  function handleSortZ_A() {
-    dispatch(sortedVideogames(false));
-  }
   //-------Filtro por Genero-----
   function handleGenre(event) {
     const selectedGenre = event.target.value;
+    setSelectedGenre(selectedGenre);
     if (selectedGenre === "Todos") {
-      dispatch(getAllGames());
+      dispatch(reseted());
     } else {
       dispatch(genresVideogames(selectedGenre));
     }
   }
   //-------Filtro por Origen---
   function handleOrigin(event) {
-    const Origin = event.target.value;
-    dispatch(getGamesOrigin(Origin));
+    const selectedOrigin = event.target.value;
+    setSelectedOrigin(selectedOrigin);
+    if (selectedGenre === "Todos") {
+      dispatch(reseted());
+    } else {
+      dispatch(getGamesOrigin(selectedOrigin));
+    }
+  }
+  //------Ordenamiento------
+  function handleSorting(event) {
+    const selectedSorting = event.target.value;
+    setSelectedSorting(selectedSorting);
+
+    if (selectedSorting === "ratingAsc") {
+      dispatch(raitingVideogames(false));
+    } else if (selectedSorting === "ratingDesc") {
+      dispatch(raitingVideogames(true));
+    } else if (selectedSorting === "nameAsc") {
+      dispatch(sortedVideogames(true));
+    } else if (selectedSorting === "nameDesc") {
+      dispatch(sortedVideogames(false));
+    }
   }
   //-------Reseteo----------
   function handleReset(event) {
-    dispatch(reset());
+    dispatch(reseted());
+    setSelectedGenre("Todos");
+    setSelectedOrigin("Todos");
+    setSelectedSorting("");
   }
 
   return (
@@ -105,17 +116,9 @@ function Home() {
       <Navbar
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        handleSortA_Z={handleSortA_Z}
-        handleSortZ_A={handleSortZ_A}
+        handleSorting={handleSorting}
         handleReset={handleReset}
-        handleRatingAscending={handleRatingAscending}
-        handleRatingDescending={handleRatingDescending}
       />
-
-      {/* Mostrar el mensaje de error si existe */}
-      {error && error.message && (
-        <div className="error-message">{error.message}</div>
-      )}
 
       {/* Mostrar las Cards solo si no hay mensaje de error */}
       {error && error.message && (
@@ -124,6 +127,9 @@ function Home() {
 
       {!error || !error.message ? (
         <Cards
+          selectedGenre={selectedGenre}
+          selectedOrigin={selectedOrigin}
+          selectedSorting={selectedSorting}
           allGamescopy={allGamescopy}
           pagina={pagina}
           porPagina={porPagina}
