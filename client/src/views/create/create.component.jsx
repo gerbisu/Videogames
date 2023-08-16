@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { validation } from "../../utils/validation";
-import { getAllGenres } from "../../redux/actions/index";
+import { getAllGenres, getAllGames } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
 
 function Create() {
   const dispatch = useDispatch();
   //-------Carga de Games--------
   useEffect(() => {
+    dispatch(getAllGames());
     dispatch(getAllGenres());
   }, [dispatch]);
   //-------Estados Globales---
+  const allGamescopy = useSelector((state) => state.allGamescopy);
   const allGenres = useSelector((state) => state.allGenres);
   //-----Estados Locales----
   const [input, setInput] = useState({
@@ -36,14 +38,13 @@ function Create() {
   //-----Funciones-----
   function handleChange(event) {
     const { name, value, type, checked } = event.target;
-    console.log(checked);
 
     if (type === "checkbox") {
-      let updatedGenres = [...input.genre];
+      let updatedGenres = [...input.genre]; //copia del estado input
       if (checked) {
-        updatedGenres.push(value);
+        updatedGenres.push(value); // si es checked agrego genero
       } else {
-        updatedGenres = updatedGenres.filter((genre) => genre !== value);
+        updatedGenres = updatedGenres.filter((genre) => genre !== value); // si es checked filtro genero
       }
 
       setInput({ ...input, genre: updatedGenres });
@@ -61,30 +62,34 @@ function Create() {
 
   const handlerSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/videogames", input)
-      .then((res) => {
-        alert(res);
-        setInput({
-          name: "",
-          description: "",
-          platforms: "",
-          image: "",
-          released: "",
-          rating: "",
-          genre: "",
-        });
-        setErrors({
-          name: "inserte nombre",
-          description: "descripcion...",
-          platforms: "plataforma...",
-          image: "url...",
-          released: "DD/MM/AA...",
-          rating: "Seleccione Raiting",
-          genre: "Seleccione Genero",
-        });
-      })
-      .catch((err) => alert(err));
+    if (allGamescopy.some((game) => game.name === input.name)) {
+      alert("Nombre Repetido");
+    } else {
+      axios
+        .post("http://localhost:3001/videogames", input)
+        .then((res) => {
+          alert(res);
+          setInput({
+            name: "",
+            description: "",
+            platforms: "",
+            image: "",
+            released: "",
+            rating: "",
+            genre: "",
+          });
+          setErrors({
+            name: "inserte nombre",
+            description: "descripcion...",
+            platforms: "plataforma...",
+            image: "url...",
+            released: "DD/MM/AA...",
+            rating: "Seleccione Raiting",
+            genre: "Seleccione Genero",
+          });
+        })
+        .catch((err) => alert(err));
+    }
   };
 
   return (
@@ -188,8 +193,10 @@ function Create() {
             )}
           </div>
         )}
-
-        <button type="submit">Crear</button>
+        {/*del objeto errors saco solo las propiedades y los pongo en array luego por cada uno verifico si existe error*/}
+        {Object.values(errors).every((error) => !error) && (
+          <button type="submit">Crear</button>
+        )}
       </form>
     </div>
   );

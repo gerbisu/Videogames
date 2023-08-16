@@ -13,11 +13,21 @@ function Paginacion({ pagina, setPagina, maximo }) {
   };
   return (
     <div className="paginacion">
-      <button className="paginacion-button" onClick={previousPage}>
+      <button
+        className="paginacion-button"
+        disabled={pagina === 1}
+        onClick={previousPage}
+      >
         ◀
       </button>
+
       <p className="paginacion-text">{pagina}</p>
-      <button className="paginacion-button" onClick={nextPagina}>
+
+      <button
+        className="paginacion-button"
+        disabled={pagina === maximo}
+        onClick={nextPagina}
+      >
         ▶
       </button>
     </div>

@@ -5,12 +5,7 @@ import { Link } from "react-router-dom";
 import {
   getAllGames,
   getByName,
-  sortedVideogames, //!Ordena por nombre
-  raitingVideogames, //!Ordena pro raiting
-  genresVideogames, //!Filtra por genero
-  getGamesOrigin, //!Filtra por origen
   getAllGenres,
-  reseted,
 } from "../../redux/actions/index";
 import Navbar from "../../components/navbar/navbar.component";
 import Cards from "../../components/cards/cards.component";
@@ -51,40 +46,19 @@ function Home() {
   function handleGenre(event) {
     const selectedGenre = event.target.value;
     setSelectedGenre(selectedGenre);
-    if (selectedGenre === "Todos") {
-      dispatch(reseted());
-    } else {
-      dispatch(genresVideogames(selectedGenre));
-    }
   }
   //-------Filtro por Origen---
   function handleOrigin(event) {
     const selectedOrigin = event.target.value;
     setSelectedOrigin(selectedOrigin);
-    if (selectedGenre === "Todos") {
-      dispatch(reseted());
-    } else {
-      dispatch(getGamesOrigin(selectedOrigin));
-    }
   }
   //------Ordenamiento------
   function handleSorting(event) {
     const selectedSorting = event.target.value;
     setSelectedSorting(selectedSorting);
-
-    if (selectedSorting === "ratingAsc") {
-      dispatch(raitingVideogames(false));
-    } else if (selectedSorting === "ratingDesc") {
-      dispatch(raitingVideogames(true));
-    } else if (selectedSorting === "nameAsc") {
-      dispatch(sortedVideogames(true));
-    } else if (selectedSorting === "nameDesc") {
-      dispatch(sortedVideogames(false));
-    }
   }
   //-------Reseteo----------
   function handleReset(event) {
-    dispatch(reseted());
     setSelectedGenre("Todos");
     setSelectedOrigin("Todos");
     setSelectedSorting("");

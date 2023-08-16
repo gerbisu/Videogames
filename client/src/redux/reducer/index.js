@@ -2,12 +2,7 @@ import {
   GET_GAMES,
   GET_BY_NAME,
   GET_BY_ID,
-  SORTED,
-  RATING,
   GET_GENRES,
-  GENRES,
-  RESETED,
-  ORIGIN,
   CLEAR_GAME_DETAILS,
 } from "../actions/index";
 
@@ -26,8 +21,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         allGames: action.payload,
         allGamescopy: action.payload,
-        filtered: action.payload,
-        sorted: action.payload,
         error: null,
       };
     case GET_GENRES:
@@ -50,16 +43,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         Game: action.payload,
-      };
-    case RATING:
-    case SORTED:
-    case GENRES:
-    case RESETED:
-    case ORIGIN:
-      return {
-        ...state,
-        allGamescopy: action.payload,
-        error: null,
       };
     default:
       return state;

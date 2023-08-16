@@ -2,9 +2,6 @@ import axios from "axios";
 export const GET_GAMES = "GET_GAMES";
 export const GET_BY_NAME = "GET_BY_NAME";
 export const GET_BY_ID = "GET_BY_ID";
-export const FILTER_GAMES = "FILTER_GAMES";
-export const SORTED = "SORTED";
-export const RATING = "RATING";
 export const GET_GENRES = "GET_GENRES";
 export const GENRES = "GENRES";
 export const RESETED = "RESETED";
@@ -20,7 +17,11 @@ export function getAllGames() {
         payload: response.data,
       });
     } catch (error) {
-      // Manejo de errores aquí si es necesario
+      if (error.response) {
+        console.error("Error de la API:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
     }
   };
 }
@@ -34,7 +35,11 @@ export function getAllGenres() {
         payload: response.data,
       });
     } catch (error) {
-      // Manejo de errores aquí si es necesario
+      if (error.response) {
+        console.error("Error de la API:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
     }
   };
 }
@@ -52,8 +57,8 @@ export function getByName(name) {
     } catch (error) {
       return dispatch({
         type: GET_BY_NAME,
-        payload: [], // Puedes establecer un valor predeterminado si lo deseas
-        error: { message: "Hubo un error al obtener los juegos" }, // Establecer el estado de error
+        payload: [],
+        error: { message: "Hubo un error al obtener los juegos" },
       });
     }
   };
@@ -68,11 +73,16 @@ export function getById(id) {
         payload: response.data,
       });
     } catch (error) {
-      // Manejo de errores aquí si es necesario
+      if (error.response) {
+        console.error("Error de la API:", error.response.data);
+      } else {
+        console.error("Error:", error.message);
+      }
     }
   };
 }
 
+/*
 export const raitingVideogames = (ascending) => {
   return async function (dispatch, getState) {
     const allGames = getState().allGames;
@@ -103,6 +113,7 @@ export const sortedVideogames = (ascending) => {
     });
   };
 };
+
 
 export const genresVideogames = (genre) => {
   return async function (dispatch, getState) {
@@ -143,6 +154,8 @@ export const reseted = () => {
     });
   };
 };
+
+*/
 
 export const clearGameDetails = () => {
   return {

@@ -10,7 +10,7 @@ function Cards({
   porPagina,
 }) {
   const gamesList = allGamescopy;
-
+  //---Filtros--
   const filteredByGenre =
     selectedGenre === "Todos"
       ? gamesList
@@ -21,14 +21,17 @@ function Cards({
       ? filteredByGenre
       : filteredByGenre.filter(
           (game) =>
-            (selectedOrigin === "API" && !game.origin) ||
-            (selectedOrigin === "Database" && game.origin)
+            (selectedOrigin === "API" && !game.origin) || // si selected es API y el juego NO tiene propiedad origin
+            (selectedOrigin === "Database" && game.origin) // si selected es DB y el juego TIENE pripiedad origin
         );
+
   const sortedGames = [...filteredByOrigin];
+
+  //----Ordenamientos----
   if (selectedSorting === "ratingAsc") {
-    sortedGames.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
-  } else if (selectedSorting === "ratingDesc") {
     sortedGames.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+  } else if (selectedSorting === "ratingDesc") {
+    sortedGames.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
   } else if (selectedSorting === "nameAsc") {
     sortedGames.sort((a, b) => a.name.localeCompare(b.name));
   } else if (selectedSorting === "nameDesc") {
